@@ -59,7 +59,7 @@ function FormGatos(props) {
           name="gasto"
           id="gasto"
           className="u-full-width"
-          placeholder="$$"
+          placeholder="$100"
           onChange = {e => setCantidadGasto(parseInt(e.target.value), 10)}
           value = {cantidadGasto}
         />
