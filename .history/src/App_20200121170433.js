@@ -4,51 +4,21 @@ import Main from "./components/Main";
 import { useState } from "react";
 import FormGatos from "./components/ui/FormGatos";
 import ListGasto from "./components/ListGasto";
-import ControlPresupuesto from "./components/ControlPresupuesto";
 
 function App() {
   const [presupuesto, setPresupuesto] = useState(0);
   const [isPresupuesto, setIsPresupuesto] = useState(true);
-  const [restante, setRestante] = useState(0)
   const [createGasto, setCreateGasto] = useState(false);
-  const [deleteGasto, setDeleteGasto] = useState(false);
   const [gasto, setGasto] = useState({});
   const [gastos, setGastos] = useState([]);
 
   useEffect(()=> {
     if(createGasto){
       const listGastos = [...gastos, gasto];
-
-      //console.log(listGastos);
-      
       setGastos(listGastos);
-
-      setCreateGasto(false);
-
-      const sumaGastos = listGastos.reduce((suma, gasto) => {
-        return suma + gasto.cantidadGasto;
-      }, 0);
-
-      console.log(sumaGastos);
-      
-
-      setRestante(presupuesto - sumaGastos);
-
-    }
-
-    if(deleteGasto){
-      const sumaGastos = gastos.reduce((suma, gasto) => {
-        return suma + gasto.cantidadGasto;
-      }, 0);
-
-      console.log(sumaGastos);
-      
-      setDeleteGasto(false);
-      
-      setRestante(presupuesto - sumaGastos);
     }
     
-  }, [createGasto, restante, gasto, gastos, presupuesto]);
+  }, [gasto]);
 
   return (
     <div className="App container">
@@ -58,16 +28,14 @@ function App() {
           <Main
             setPresupuesto={setPresupuesto}
             setIsPresupuesto={setIsPresupuesto}
-            setRestante= {setRestante}
           />
         ) : (
           <div className="row">
             <div className="one-half column">
-              <FormGatos setGasto={setGasto} setCreateGasto={setCreateGasto}/>
+              <FormGatos setGasto={setGasto} createGasto={createGasto}/>
             </div>
             <div className="one-half column">
-              <ListGasto gastos = {gastos} setGastos ={setGastos} setDeleteGasto={setDeleteGasto}/>
-              <ControlPresupuesto  presupuesto={presupuesto} restante={restante}/>
+              <ListGasto gastos = {gastos}/>
             </div>
           </div>
         )}

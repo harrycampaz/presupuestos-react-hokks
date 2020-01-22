@@ -43,8 +43,6 @@ function App() {
 
       console.log(sumaGastos);
       
-      setDeleteGasto(false);
-      
       setRestante(presupuesto - sumaGastos);
     }
     

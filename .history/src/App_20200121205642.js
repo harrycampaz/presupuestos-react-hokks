@@ -37,13 +37,11 @@ function App() {
     }
 
     if(deleteGasto){
-      const sumaGastos = gastos.reduce((suma, gasto) => {
+      const sumaGastos = listGastos.reduce((suma, gasto) => {
         return suma + gasto.cantidadGasto;
       }, 0);
 
       console.log(sumaGastos);
-      
-      setDeleteGasto(false);
       
       setRestante(presupuesto - sumaGastos);
     }

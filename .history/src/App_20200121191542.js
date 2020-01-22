@@ -11,7 +11,6 @@ function App() {
   const [isPresupuesto, setIsPresupuesto] = useState(true);
   const [restante, setRestante] = useState(0)
   const [createGasto, setCreateGasto] = useState(false);
-  const [deleteGasto, setDeleteGasto] = useState(false);
   const [gasto, setGasto] = useState({});
   const [gastos, setGastos] = useState([]);
 
@@ -19,36 +18,26 @@ function App() {
     if(createGasto){
       const listGastos = [...gastos, gasto];
 
-      //console.log(listGastos);
+      console.log(listGastos);
       
+
       setGastos(listGastos);
 
       setCreateGasto(false);
 
-      const sumaGastos = listGastos.reduce((suma, gasto) => {
-        return suma + gasto.cantidadGasto;
-      }, 0);
-
-      console.log(sumaGastos);
-      
-
-      setRestante(presupuesto - sumaGastos);
-
-    }
-
-    if(deleteGasto){
       const sumaGastos = gastos.reduce((suma, gasto) => {
-        return suma + gasto.cantidadGasto;
-      }, 0);
+        return suma+ gasto.cantidadGasto;
+      });
 
       console.log(sumaGastos);
       
-      setDeleteGasto(false);
-      
-      setRestante(presupuesto - sumaGastos);
+
+      const presupuestoRestante = restante - gasto.cantidadGasto;
+      setRestante(presupuestoRestante);
+
     }
     
-  }, [createGasto, restante, gasto, gastos, presupuesto]);
+  }, [createGasto, restante, gasto, gastos]);
 
   return (
     <div className="App container">
@@ -66,7 +55,7 @@ function App() {
               <FormGatos setGasto={setGasto} setCreateGasto={setCreateGasto}/>
             </div>
             <div className="one-half column">
-              <ListGasto gastos = {gastos} setGastos ={setGastos} setDeleteGasto={setDeleteGasto}/>
+              <ListGasto gastos = {gastos} setGastos ={setGastos}/>
               <ControlPresupuesto  presupuesto={presupuesto} restante={restante}/>
             </div>
           </div>
